@@ -29,5 +29,9 @@ namespace ChrisTekhBlog.Core
 
         //Detail
         Post Post(int year, int month, string titleSlug);
+
+        //Cats
+        IList<Category> Categories();
+        IList<Tag> Tags();
     }
 }

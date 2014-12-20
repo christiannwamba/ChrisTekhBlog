@@ -89,6 +89,13 @@ namespace ChrisTekhBlog.Controllers
             ViewBag.SubHeader = "\"" + post.Category.Name + "\"";
             return View(post);
         }
+
+        [ChildActionOnly]
+        public PartialViewResult Sidebars()
+        {
+            var widgetViewModel = new WidgetViewModel(_blogRepository);
+            return PartialView("_Sidebars", widgetViewModel);
+        }
         public ActionResult About()
         {
             ViewBag.Header = "About the Blog!";

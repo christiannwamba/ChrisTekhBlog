@@ -130,5 +130,15 @@ namespace ChrisTekhBlog.Core
 
             return query.Single();
         }
+
+        //Cats
+        public IList<Category> Categories()
+        {
+            return _context.Category.OrderBy(p => p.Name).ToList();
+        }
+        public IList<Tag> Tags()
+        {
+            return _context.Tag.OrderBy(p => p.Name).ToList();
+        }
     }
 }

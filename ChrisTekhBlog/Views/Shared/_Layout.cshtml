@@ -74,13 +74,7 @@
 
     <div class="container">
         @RenderBody()
-        <div class="col-md-2">
-            <div class="panel">
-                <div class="panel-body">
-dd
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <hr />
@@ -88,6 +82,10 @@ dd
     <footer>
         <div class="container">
             <div class="row">
+                @Html.Action("Sidebars")
+            </div>
+            <div class="row">
+                
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
