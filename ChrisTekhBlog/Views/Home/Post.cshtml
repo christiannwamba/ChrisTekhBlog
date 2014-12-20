@@ -1,0 +1,16 @@
+﻿@model ChrisTekhBlog.Core.Objects.Post
+
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="post-meta">
+            Category <a href="~/Category/@Model.UrlSlug">@Model.Category.Name</a>, Tags
+            @foreach (var m in Model.Tags)
+            {
+                <a href="~/Tag/@Model.UrlSlug"><i>@m.Name</i></a><text>,&nbsp;</text>
+            }
+            on @Model.PostedOn.ToShortDateString()
+        </p>
+        @Html.Raw(Model.Description)
+    </div>
+</div>
+

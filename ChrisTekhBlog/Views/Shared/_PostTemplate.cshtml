@@ -1,0 +1,23 @@
+﻿@model ChrisTekhBlog.Core.Objects.Post
+
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-preview">
+            <a href="~/Archive/@Model.PostedOn.Year/@Model.PostedOn.Month/@Model.UrlSlug">
+                <h2 class="post-title">
+                    @Model.Title
+                </h2>
+                <h3 class="post-subtitle">
+                    @Html.Raw(Model.ShortDescription)
+                </h3>
+            </a>
+            <p class="post-meta">Category <a href="~/Category/@Model.UrlSlug">@Model.Category.Name</a>, Tags 
+            @foreach (var m in Model.Tags)
+            {
+                <a href="~/Tag/@Model.UrlSlug"><i>@m.Name</i></a><text>,&nbsp;</text>
+            }
+             on @Model.PostedOn.ToShortDateString()</p>
+        </div>
+        <hr>
+    </div>
+</div>
