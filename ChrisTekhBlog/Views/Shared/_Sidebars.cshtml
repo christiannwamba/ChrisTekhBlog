@@ -1,0 +1,18 @@
+﻿
+@model ChrisTekhBlog.ViewModel.WidgetViewModel
+
+<div id="sidebars">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Cateories</div>
+            <div class="panel-body">@Html.Partial("_Categories", Model.Categories)</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Tags</div>
+            <div class="panel-body">@Html.Partial("_Tags", Model.Tags)</div>
+        </div>
+    </div>
+    
+</div>
