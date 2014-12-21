@@ -33,5 +33,20 @@ namespace ChrisTekhBlog.Core
         //Cats
         IList<Category> Categories();
         IList<Tag> Tags();
+        
+        //Admin Posts
+        IList<Post> Posts();
+        void CreatePost(Post post);
+        Post Post(int id);
+        void UpdatePost(Post post);
+        void DeletePost(int id);
+
+        //Admin Cats
+       
+        void CreateCategory(Category categories);
+        Category Category(int id);
+        void UpdateCategory(Category categories);
+        void DeleteCategory(int id);
+
     }
 }

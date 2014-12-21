@@ -112,3 +112,4 @@ C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog\bin\Microsoft.Owin.
 C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog\obj\Debug\ChrisTekhBlog.csprojResolveAssemblyReference.cache
 C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog\obj\Debug\ChrisTekhBlog.dll
 C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog\obj\Debug\ChrisTekhBlog.pdb
+C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog\bin\Elmah.dll

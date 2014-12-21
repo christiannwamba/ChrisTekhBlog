@@ -16,6 +16,24 @@ namespace ChrisTekhBlog.Controllers
         {
             _blogRepository = new BlogRepository(new ApplicationDbContext());
         }
+        [Route("Error/404")]
+        public ActionResult Err404()
+        {
+            ViewBag.Header = "Wrong Direction";
+            ViewBag.SubHeader = "\"Guess you lost your way may be you should just go home\"";
+            return View();
+        }
+        [Route("Error/500")]
+        public ActionResult Err500()
+        {
+            ViewBag.Header = "Ouch!";
+            ViewBag.SubHeader = "\"Things went wrong on our side, please Contact Admin\"";
+            return View();
+        }
+        public ActionResult BadAction()
+        {
+            throw new Exception("You forgot to implement this action!");
+        }
         public ActionResult Index(int p = 1)
         {
             // pick latest 10 posts
@@ -32,6 +50,7 @@ namespace ChrisTekhBlog.Controllers
             ViewBag.Title = "Home";
             return View("List", listViewModel);
         }
+        [Route("Category/{category}")]
         public ViewResult Category(string category, int p = 1)
         {
             var viewmodel = new ListViewModel();
@@ -47,6 +66,7 @@ namespace ChrisTekhBlog.Controllers
                                 viewmodel.Category.Name);
             return View("List", viewmodel);
         }
+        [Route("Tag/{tag}")]
         public ViewResult Tag(string tag, int p = 1)
         {
             var viewmodel = new ListViewModel();

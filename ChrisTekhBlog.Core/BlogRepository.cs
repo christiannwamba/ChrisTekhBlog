@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PagedList;
+using System.Data.Entity;
 
 namespace ChrisTekhBlog.Core
 {
@@ -128,7 +129,7 @@ namespace ChrisTekhBlog.Core
             
             query.SelectMany(p => p.Tags);
 
-            return query.Single();
+            return query.FirstOrDefault();
         }
 
         //Cats
@@ -139,6 +140,81 @@ namespace ChrisTekhBlog.Core
         public IList<Tag> Tags()
         {
             return _context.Tag.OrderBy(p => p.Name).ToList();
+        }
+        //Admin
+        public IList<Post> Posts()
+        {
+            //var posts = from p in _context.Post orderby p.PostedOn descending select new { p.Category, p.PostedOn, p.Published, Tags =  p.Tags.Select(t=>t.Name), p.Title, p.UrlSlug};
+            return _context.Post.OrderByDescending(x => x.PostedOn).ToList();
+        }
+        //Create Post
+        public void CreatePost(Post post)
+        {
+            _context.Post.Add(post);
+            _context.SaveChanges();
+            
+        }
+        //Post by Id
+        public Post Post(int id)
+        {
+            return _context.Post.Find(id);
+        }
+        public void UpdatePost(Post post)
+        {
+            if (post != null)
+            {
+                var post2 = (from p in _context.Post where p.Id == post.Id select p).FirstOrDefault();
+                post2.CategoryId = post.CategoryId;
+                post2.Description = post.Description;
+                post2.Meta = post.Meta;
+                post2.Published = post.Published;
+                post2.ShortDescription = post.ShortDescription;
+                post2.Title = post.Title;
+                post2.UrlSlug = post.UrlSlug;
+                _context.Entry(post2).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeletePost(int id)
+        {
+            Post post = _context.Post.Find(id);
+            _context.Post.Remove(post);
+            _context.SaveChanges();
+        }
+
+        //Admin Cat
+       
+        //Create Category
+        public void CreateCategory(Category Category)
+        {
+            _context.Category.Add(Category);
+            _context.SaveChanges();
+
+        }
+        //Category by Id
+        public Category Category(int id)
+        {
+            return _context.Category.Find(id);
+        }
+        public void UpdateCategory(Category Category)
+        {
+            if (Category != null)
+            {
+                var Category2 = (from p in _context.Category where p.Id == Category.Id select p).FirstOrDefault();
+                Category2.Name = Category.Name;
+                Category2.Description = Category.Description;
+                Category2.UrlSlug = Category.UrlSlug;
+                _context.Entry(Category2).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteCategory(int id)
+        {
+            Category category = _context.Category.Find(id);
+            _context.Category.Remove(category);
+            _context.SaveChanges();
         }
     }
 }

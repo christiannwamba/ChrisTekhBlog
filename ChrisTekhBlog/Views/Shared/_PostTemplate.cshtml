@@ -11,10 +11,10 @@
                     @Html.Raw(Model.ShortDescription)
                 </h3>
             </a>
-            <p class="post-meta">Category <a href="~/Category/@Model.UrlSlug">@Model.Category.Name</a>, Tags 
+            <p class="post-meta">Category <a href="~/Category/@Model.Category.UrlSlug">@Model.Category.Name</a>, Tags 
             @foreach (var m in Model.Tags)
             {
-                <a href="~/Tag/@Model.UrlSlug"><i>@m.Name</i></a><text>,&nbsp;</text>
+                <a href="~/Tag/@m.UrlSlug"><i>@m.Name</i></a><text>,&nbsp;</text>
             }
              on @Model.PostedOn.ToShortDateString()</p>
         </div>

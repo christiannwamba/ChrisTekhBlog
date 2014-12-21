@@ -38,7 +38,12 @@ namespace ChrisTekhBlog
                 "Archive/{year}/{month}/{title}",
                 new { controller = "Home", action = "Post" }
             );
-           
+            routes.MapRoute(
+                "Manage",
+                "Manage",
+                new { controller = "Admin", action = "Manage" }
+            );
+                       
         }
     }
 }

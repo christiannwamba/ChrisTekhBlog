@@ -1,11 +1,96 @@
 ﻿@model ChrisTekhBlog.ViewModel.RegisterViewModel
+
 @{
-    ViewBag.Title = "Register";
+    Layout = null;
 }
 
-<h2>@ViewBag.Title.</h2>
+<!DOCTYPE html>
+<html lang="en">
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<head>
+    <meta name="description" content="">
+    <meta name="author" content="ChrisTekh">
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/plugins/morris.css" rel="stylesheet" />
+    <link href="~/Content/plugins/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/plugins/timeline.css" rel="stylesheet" />
+    <link href="~/Content/plugins/social-buttons.css" rel="stylesheet" />
+    <link href="~/Content/plugins/metisMenu/metisMenu.min.css" rel="stylesheet" />
+    <title>Register</title>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <div class="form-group">
+                                    <input style="border-radius:0" class="form-control" placeholder="Username" name="UserName" type="text" autofocus>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.UserName)
+                                <div class="form-group">
+                                    <input style="border-radius:0" class="form-control" placeholder="Password" name="Password" type="password" value="">
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Password)
+                                <div class="form-group">
+                                    <input style="border-radius:0" class="form-control" placeholder="Confirm Password" name="ConfirmPassword" type="password" value="">
+                                </div>
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                             
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input type="submit" value="Register" class="btn btn-lg btn-success btn-block">
+                            </fieldset>
+                        }
+                    </div>
+                    <div class="panel-footer">
+                        <a href="~/Account/Login">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+@*@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
@@ -34,7 +119,7 @@
             <input type="submit" class="btn btn-default" value="Register" />
         </div>
     </div>
-}
+}*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

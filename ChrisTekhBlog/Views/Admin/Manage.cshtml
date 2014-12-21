@@ -1,0 +1,224 @@
+﻿@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row" style="padding-top:50px" ng-app="AdminApp">
+    <div role="tabpanel">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Post</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Categories</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Tags</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="home" ng-controller="ManagePostCtrl">
+                <div class="panel panel-default" style="margin-top:20px">
+                    <div class="panel-heading">Posts &nbsp; <button class="btn btn-default" data-toggle="modal" data-target="#postModal"><span class="fa fa-plus"></span></button></div>
+                    <div class="panel-body">
+                        <div class="pull-right">
+                            <input type="text" style="border-radius:0" class="form-control" ng-model="search" />
+                        </div>
+                        <table class="display table-striped form-inline" cellspacing="0" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><a href="" ng-click="sortField='Name'; reverse = !reverse">Name</a></th>
+                                    <th><a href="" ng-click="sortField='PostedOn'; reverse = !reverse">PostedOn</a></th>
+                                    <th><a href="" ng-click="sortField='Published'; reverse = !reverse">Published</a></th>
+                                    <th><a href="" ng-click="sortField='Title'; reverse = !reverse">Title</a></th>
+                                    <th><a href="" ng-click="sortField='UrlSlug'; reverse = !reverse">UrlSlug</a></th>
+                                    <th><a href="" ng-click="sortField='Tags'; reverse = !reverse">Tags</a></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="p in posts | filter:search | orderBy:sortField | offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+                                    <td><button data-toggle="modal" data-target="#postModal" ng-click="editPost(p.Id)" class="fa fa-edit btn btn-primary btn-xs"></button>&nbsp;<button ng-click="deletePost(p.Id)" class="fa fa-times btn btn-danger btn-xs"></button></td>
+                                    <td>{{p.Name}}</td>
+                                    <td>{{ToJavaScriptDate(p.PostedOn)}}</td>
+                                    <td>{{p.Published}}</td>
+                                    <td>{{p.Title}}</td>
+                                    <td>{{p.UrlSlug}}</td>
+                                    <td ng-repeat="t in p.Tags">{{t + ', '}}</td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>PostedOn</th>
+                                    <th>Published</th>
+                                    <th>Title</th>
+                                    <th>UrlSlug</th>
+                                    <th>Tags</th>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+
+                                        <nav>
+                                            <ul class="pager">
+                                                <li class="previous" ng-class="prevPageDisabled()"><a href="#" ng-click="prevPage()"><span aria-hidden="true">&larr;</span> Older</a></li>
+                                                <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)"> <a href="#">{{n+1}}</a> </li>
+                                                <li class="next" ng-class="nextPageDisabled()"><a href="#" ng-click="nextPage()">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                                            </ul>
+                                        </nav>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                @*Model*@
+                <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add Post</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" ng-model="PostId" />
+                                <div class="form-group">
+                                    <input type="text" ng-model="Title" class="form-control" placeholder="Title" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Short Description</label>
+                                    <textarea class="form-control" ng-model="ShortDescription" rows="4">Short Description</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea ui-tinymce="tinymceOptions" ng-model="Description">Description</textarea>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Meta</label>
+                                    <textarea class="form-control" ng-model="Meta" rows="2">Meta</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" ng-model="UrlSlug" class="form-control" placeholder="Url Slug" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Published</label>
+                                    <select ng-model="Published" class="form-control">
+                                        <option value="false">False</option>
+                                        <option value="true">True</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select ng-model="CategoryId" class="form-control" id="admin-cat-dropdown">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="createPost()">Add</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updatePost()">Save Changes</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="profile" ng-controller="ManageCatCtrl">
+                <div class="panel panel-default" style="margin-top:20px">
+                    <div class="panel-heading">Categories &nbsp; <button class="btn btn-default" data-toggle="modal" data-target="#catModal"><span class="fa fa-plus"></span></button></div>
+                    <div class="panel-body">
+                        <div class="pull-right">
+                            <input type="text" style="border-radius:0" class="form-control" ng-model="search" />
+                        </div>
+                        <table class="display table-striped form-inline" cellspacing="0" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><a href="" ng-click="sortField='Name'; reverse = !reverse">Name</a></th>
+                                    <th><a href="" ng-click="sortField='UrlSlug'; reverse = !reverse">UrlSlug</a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="p in categories | filter:search | orderBy:sortField | offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+                                    <td><button data-toggle="modal" data-target="#catModal" ng-click="editCategory(p.Id)" class="fa fa-edit btn btn-primary btn-xs"></button>&nbsp;<button ng-click="deleteCategory(p.Id)" class="fa fa-times btn btn-danger btn-xs"></button></td>
+                                    <td>{{p.Name}}</td>
+                                    <td>{{p.UrlSlug}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>UrlSlug</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <nav>
+                                            <ul class="pager">
+                                                <li class="previous" ng-class="prevPageDisabled()"><a href="#" ng-click="prevPage()"><span aria-hidden="true">&larr;</span> Older</a></li>
+                                                <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)"> <a href="#">{{n+1}}</a> </li>
+                                                <li class="next" ng-class="nextPageDisabled()"><a href="#" ng-click="nextPage()">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                                            </ul>
+                                        </nav>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                @*Model*@
+                <div class="modal fade" id="catModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add Category</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" ng-model="CategoryId" />
+                                <div class="form-group">
+                                    <input type="text" ng-model="Name" class="form-control" placeholder="Name" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" rows="4" ng-model="Description">Description</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" ng-model="UrlSlug" class="form-control" placeholder="Url Slug" />
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="createCategory()">Add</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updateCategory()">Save Changes</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="messages">...</div>
+            <div role="tabpanel" class="tab-pane fade" id="settings">...</div>
+        </div>
+
+    </div>
+
+    <!-- Post -->
+   
+
+    
+</div>
+
+
+

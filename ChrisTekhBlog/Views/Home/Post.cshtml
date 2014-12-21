@@ -1,16 +1,20 @@
 ﻿@model ChrisTekhBlog.Core.Objects.Post
-
+@using ChrisTekhBlog.Lib
 <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <p class="post-meta">
-            Category <a href="~/Category/@Model.UrlSlug">@Model.Category.Name</a>, Tags
+            Category <a href="~/Category/@Model.Category.UrlSlug">@Model.Category.Name</a>, Tags
             @foreach (var m in Model.Tags)
             {
-                <a href="~/Tag/@Model.UrlSlug"><i>@m.Name</i></a><text>,&nbsp;</text>
+                <a href="~/Tag/@m.UrlSlug"><i>@m.Name</i></a><text>,&nbsp;</text>
             }
             on @Model.PostedOn.ToShortDateString()
+            <span class="pull-right">Comments:  <a href="@string.Format("{0}#disqus_thread", Model.Href(Url))"></a></span>
         </p>
         @Html.Raw(Model.Description)
+        <hr />
+        @Html.Partial("_Disqus", Model)
     </div>
+    @Html.Partial("_AddThis")
 </div>
 

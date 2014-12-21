@@ -57,6 +57,6 @@ C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog.Core\bin\Debug\Micr
 C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog.Core\bin\Debug\Newtonsoft.Json.xml
 C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog.Core\bin\Debug\PagedList.xml
 C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog.Core\bin\Debug\PagedList.Mvc.xml
-C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog.Core\obj\Debug\ChrisTekhBlog.Core.csprojResolveAssemblyReference.cache
 C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog.Core\obj\Debug\ChrisTekhBlog.Core.dll
 C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog.Core\obj\Debug\ChrisTekhBlog.Core.pdb
+C:\Users\CHRISTABEL\Source\Repos\ChrisTekhBlog\ChrisTekhBlog.Core\obj\Debug\ChrisTekhBlog.Core.csprojResolveAssemblyReference.cache
