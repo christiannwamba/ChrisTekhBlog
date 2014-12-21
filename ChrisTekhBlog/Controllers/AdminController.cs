@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ChrisTekhBlog.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AdminController : Controller
     {
          private readonly IBlogRepository _blogRepository;
