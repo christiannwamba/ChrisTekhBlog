@@ -38,6 +38,7 @@ namespace ChrisTekhBlog.Controllers
         
         //[Route("Json/CreatePost")]
         [HttpPost]
+        [ValidateInput(false)] 
         public JsonResult CreatePost(Post post)
         {
            
